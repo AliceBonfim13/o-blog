@@ -1,15 +1,15 @@
-import { findPostBySlugCached } from "@/lib/post/queries"
-import Image from "next/image"
-import { PostHeading } from "../PostHeading"
-import { PostDate } from "../PostDate"
+import { findPublicPostBySlugCached } from "@/lib/post/queries/public";
+import Image from "next/image";
+import { PostHeading } from "../PostHeading";
+import { PostDate } from "../PostDate";
+import { SafeMarkdown } from "../SafeMarkdown";
 
 type SinglePostProps = {
-  slug: string
-}
-
+  slug: string;
+};
 
 export async function SinglePost({ slug }: SinglePostProps) {
-  const post = await findPostBySlugCached(slug)
+  const post = await findPublicPostBySlugCached(slug);
 
   return (
     <article>
@@ -24,12 +24,14 @@ export async function SinglePost({ slug }: SinglePostProps) {
 
         <PostHeading url={`/post/${post.slug}`}>{post.title}</PostHeading>
 
-        <p>{post.author} | <PostDate dateTime={post.createdAt} /></p>
+        <p>
+          {post.author} | <PostDate dateTime={post.createdAt} />
+        </p>
       </header>
 
       <p className="text-xl mb-4 text-slate-400">{post.excerpt}</p>
-      <div>{post.content}</div>
 
+      <SafeMarkdown markdown={post.content} />
     </article>
-  )
+  );
 }
