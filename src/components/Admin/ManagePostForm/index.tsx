@@ -30,7 +30,7 @@ export function ManagePostForm(props: ManagePostFormProps) {
     publicPost = props.publicPost;
   }
 
-  const actionMap = {
+  const actionsMap = {
     update: updatePostAction,
     create: createPostAction,
   };
@@ -40,7 +40,7 @@ export function ManagePostForm(props: ManagePostFormProps) {
     errors: [],
   };
   const [state, action, isPending] = useActionState(
-    actionMap[mode],
+    actionsMap[mode],
     initialState,
   );
 
@@ -66,7 +66,7 @@ export function ManagePostForm(props: ManagePostFormProps) {
       <div className="flex flex-col gap-6">
         <InputText
           labelText="ID"
-          name="ID"
+          name="id"
           placeholder="ID gerado automaticamente"
           type="text"
           defaultValue={formState.id}
@@ -76,7 +76,7 @@ export function ManagePostForm(props: ManagePostFormProps) {
 
         <InputText
           labelText="Slug"
-          name="Slug"
+          name="slug"
           placeholder="Slug gerada automaticamente"
           type="text"
           defaultValue={formState.slug}
@@ -96,7 +96,7 @@ export function ManagePostForm(props: ManagePostFormProps) {
         <InputText
           labelText="Título"
           name="title"
-          placeholder="Digite o titulo"
+          placeholder="Digite o título"
           type="text"
           defaultValue={formState.title}
           disabled={isPending}
@@ -115,18 +115,18 @@ export function ManagePostForm(props: ManagePostFormProps) {
           labelText="Conteúdo"
           value={contentValue}
           setValue={setContentValue}
-          disabled={isPending}
           textAreaName="content"
+          disabled={isPending}
         />
 
-        <ImageUploader />
+        <ImageUploader disabled={isPending} />
 
         <InputText
           labelText="URL da imagem de capa"
           name="coverImageUrl"
           placeholder="Digite a url da imagem"
           type="text"
-          defaultValue={publicPost?.coverImageUrl || ""}
+          defaultValue={formState.coverImageUrl}
           disabled={isPending}
         />
 
@@ -134,7 +134,7 @@ export function ManagePostForm(props: ManagePostFormProps) {
           labelText="Publicar?"
           name="published"
           type="checkbox"
-          defaultChecked={publicPost?.published || false}
+          defaultChecked={formState.published}
           disabled={isPending}
         />
 

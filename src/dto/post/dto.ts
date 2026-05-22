@@ -7,14 +7,14 @@ export const makePartialPublicPost = (
 ): PublicPost => {
   return {
     id: post?.id || "",
-    title: post?.title || "",
     slug: post?.slug || "",
+    title: post?.title || "",
     excerpt: post?.excerpt || "",
     author: post?.author || "",
     content: post?.content || "",
     coverImageUrl: post?.coverImageUrl || "",
-    published: post?.published || false,
     createdAt: post?.createdAt || "",
+    published: post?.published || false,
   };
 };
 
